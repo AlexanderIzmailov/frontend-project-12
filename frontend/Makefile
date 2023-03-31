@@ -3,3 +3,6 @@ start:
 
 build:
 	npm build
+
+install:
+	npm ci
