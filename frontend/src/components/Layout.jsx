@@ -1,16 +1,24 @@
 import { Link, Outlet } from 'react-router-dom';
 
+import Nav from 'react-bootstrap/Nav';
+
 export const Layout = () => {
   return (
     <>
-      <header>
-        <ul>
-          <li><Link to="/">Chat</Link></li>
-          <li><Link to="/api/v1/data">Server</Link></li>
-        </ul>
+      <header className="container">
+        <Nav>
+          <Nav.Item>
+            <Link className="nav-link" to="/">Chat</Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link className="nav-link" to="api/v1/data">Server</Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link className="nav-link" to="login">Login</Link>
+          </Nav.Item>
+        </Nav>
       </header>
       <Outlet />
-      <footer>2023</footer>
     </>
   )
 }
