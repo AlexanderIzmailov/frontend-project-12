@@ -5,13 +5,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import { Navigate, useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 import { useAuth } from './AuthContext';
-import { Chat } from './Chat';
 
 import routes from './routes.js';
 
@@ -34,11 +32,8 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const {
-    authUser,
     setAuthUser,
-    isLoggedIn,
     setIsLoggedIn,
-    token,
     setToken,
   } = useAuth();
 
