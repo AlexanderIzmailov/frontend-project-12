@@ -1,11 +1,72 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+
+import { Navigate, useNavigate } from 'react-router-dom'; 
+
+import { useAuth } from './AuthContext';
+import { Chat } from './Chat';
+
+import routes from './routes.js';
+
+const test = () => {
+  // const request = await axios.post('/api/v1/login', { username: 'admin', password: 'admin' });
+  // console.log(request.data)
+  
+  // axios.post('/api/v1/login', { username: 'admin', password: 'admin' })
+  //   .then((response) => console.log(response.data))
+  //   .catch((err) => console.log('Err: ', err.response.data))
+  // return <Navigate to={Chat}/>
+  console.log(routes)
+  // const navigate = useNavigate();
+  // navigate('/')
+}
+
 export const Login = () => {
+  const [authError, setAuthError] = useState(null);
+
+  const navigate = useNavigate();
+
+  const {
+    authUser,
+    setAuthUser,
+    isLoggedIn,
+    setIsLoggedIn,
+    token,
+    setToken,
+  } = useAuth();
+
+  const LogInToServer = (values) => {
+    const { userName, password } = values;
+    // axios.post('/api/v1/login', { username: userName, password: password })
+    routes.authorise(userName, password)
+
+      .then((response) => {
+        const {token, username} = response.data;
+        localStorage.setItem('token', token);
+        setAuthUser(username);
+        setToken(token);
+        setIsLoggedIn(true);
+        navigate('/')
+      })
+      .catch((err) => {
+        console.log('Err: ', err.response.data)
+        const { error  } = err.response.data
+        const errorText = error === 'Unauthorized' ? 'Неверные имя пользователя или пароль' : error;
+        setAuthError(errorText);
+      })
+  }
+
+  // useEffect(() => {
+  //   setError('aaa')
+  // }, [])
+
   const formik = useFormik({
     initialValues: {
       userName: '',
@@ -18,7 +79,7 @@ export const Login = () => {
         .required('Required'),
     }),
     onSubmit: (values) => {
-      console.log('Values :', values)
+      LogInToServer(values);
     }
   });
 
@@ -39,6 +100,7 @@ export const Login = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.userName}
                 placeholder="Your user name"
+                className={authError ? 'is-invalid' : ''}
               />
               <Form.Text className="text-danger">
                 {formik.touched.userName && formik.errors.userName ? (
@@ -58,12 +120,14 @@ export const Login = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
                 placeholder="Your user name"
+                className={authError ? 'is-invalid' : ''}
               />
               <Form.Text className="text-danger">
                 {formik.touched.password && formik.errors.password ? (
                 <div>{formik.errors.password}</div>
                 ) : null}
               </Form.Text>
+              {authError && (<div className="invalid-tooltip">{authError}</div>)}
           </FloatingLabel>
           <Button className="w-100 mb-3 btn btn-outline-primary" variant="outline-primary" type="submit">
             Submit
@@ -71,6 +135,10 @@ export const Login = () => {
         
         </Form.Group>
       </Form>
+
+      <div className="text-center">
+        <Button onClick={test} className="mx-auto" variant="warning">Test</Button>
+      </div>
     </div>
   )
 }

@@ -6,3 +6,6 @@ start-backend:
 
 start:
 	make start-backend & make start-frontend
+
+lint:
+	npx eslint ./frontend/src/
