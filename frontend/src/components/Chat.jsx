@@ -61,7 +61,7 @@ export const Chat = () => {
                 dispatch(messagesAction.addMessages(messagesFromServ))
             })
             .catch((err) => console.log('ERR: ', err.response))
-    }, [])
+    }, [token])
 
     return (
         <Container className="h-100 my-4 overflow-hidden rounded shadow">
