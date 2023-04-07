@@ -36,8 +36,6 @@ export const Login = () => {
     setAuthUser,
     setIsLoggedIn,
     setToken,
-    isLoggedIn,
-    token,
   } = useAuth();
 
   const LogInToServer = (values) => {

@@ -45,12 +45,7 @@ export const Chat = () => {
     // const [channels, setChannels] = useState([]);
     // const [messages, setMessages] = useState([]);
     const {
-        authUser,
-        setAuthUser,
-        isLoggedIn,
-        setIsLoggedIn,
         token,
-        setToken,
     } = useAuth();
 
     useEffect(() => {
@@ -58,7 +53,6 @@ export const Chat = () => {
             .then((response) => {
                 const channelsFromServ = response.data.channels;
                 const messagesFromServ = response.data.messages;
-                console.log('messagesFromServ: ', messagesFromServ);
 
                 // setChannels(channelsFromServ);
                 // setMessages(messagesFromServ);
