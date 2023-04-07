@@ -5,10 +5,12 @@ const AuthContext = React.createContext({});
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = (props) => {
-    const [authUser, setAuthUser] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [token, setToken] = useState(null);
-    
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const [authUser, setAuthUser] = useState(user && user.username);
+    const [isLoggedIn, setIsLoggedIn] = useState(user ? true : false);
+    const [token, setToken] = useState(user && user.token);
+
     const value = {
         authUser,
         setAuthUser,

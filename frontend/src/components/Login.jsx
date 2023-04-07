@@ -14,16 +14,17 @@ import { useAuth } from './AuthContext';
 import routes from './routes.js';
 
 const test = () => {
-  // const request = await axios.post('/api/v1/login', { username: 'admin', password: 'admin' });
-  // console.log(request.data)
-  
-  // axios.post('/api/v1/login', { username: 'admin', password: 'admin' })
+  //  routes.authorise('admin', 'admin')
+  //   .then((response) => response.data.token)
+  //   .then((token) => routes.getData(token))
   //   .then((response) => console.log(response.data))
-  //   .catch((err) => console.log('Err: ', err.response.data))
-  // return <Navigate to={Chat}/>
-  console.log(routes)
-  // const navigate = useNavigate();
-  // navigate('/')
+  //   .catch((err) => console.log('ERR: ', err.response.data))
+  // const { token } = useAuth();
+  // console.log('TOKENNL ', token)
+  document.querySelector('html').classList.add('h-100')
+  document.body.classList.add('h-100')
+  document.querySelector('#root').classList.add('h-100')
+  
 }
 
 export const Login = () => {
@@ -35,6 +36,8 @@ export const Login = () => {
     setAuthUser,
     setIsLoggedIn,
     setToken,
+    isLoggedIn,
+    token,
   } = useAuth();
 
   const LogInToServer = (values) => {
@@ -44,7 +47,7 @@ export const Login = () => {
 
       .then((response) => {
         const {token, username} = response.data;
-        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify({token, username}));
         setAuthUser(username);
         setToken(token);
         setIsLoggedIn(true);
