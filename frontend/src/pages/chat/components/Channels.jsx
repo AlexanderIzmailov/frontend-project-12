@@ -1,5 +1,5 @@
 import { selectors as channelsSelectors } from '../../../store/slices/channelsSlice.js';
-import { useSelector, useDispatch, useEffect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import { actions as channelsAction } from '../../../store/slices/channelsSlice.js';
 

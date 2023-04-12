@@ -3,8 +3,6 @@ import Button from 'react-bootstrap/Button';
 
 import Nav from 'react-bootstrap/Nav';
 
-import io from 'socket.io-client';
-
 const test = () => {
   //  routes.authorise('admin', 'admin')
   //   .then((response) => response.data.token)

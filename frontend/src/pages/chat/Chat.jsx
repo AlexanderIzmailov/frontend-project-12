@@ -2,11 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import routes from '../../routes.js';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions as channelsAction } from '../../store/slices/channelsSlice.js';
 import { actions as messagesAction } from '../../store/slices/messagesSlice.js';
 

@@ -8,7 +8,7 @@ import { ChatApiProvider } from './contexts/ChatApiContext.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store/index.js';
 import { Provider } from 'react-redux';
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 
 // import io from 'socket.io-client';
 // import { useDispatch, useSelector } from 'react-redux';
