@@ -58,7 +58,6 @@ export const Login = () => {
     const { userName, password } = values;
     // axios.post('/api/v1/login', { username: userName, password: password })
     routes.authorise(userName, password)
-
       .then((response) => {
         const {token, username} = response.data;
         localStorage.setItem('user', JSON.stringify({token, username}));
@@ -74,10 +73,6 @@ export const Login = () => {
         setAuthError(errorText);
       })
   }
-
-  // useEffect(() => {
-  //   setError('aaa')
-  // }, [])
 
   const formik = useFormik({
     initialValues: {

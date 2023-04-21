@@ -14,8 +14,9 @@ import { Channels } from './components/Channels.jsx';
 import { Messages } from './components/Messages.jsx';
 import { InputField } from './components/InputField.jsx';
 
-export const Chat = () => {
+import Modals from './components/Modals.jsx';
 
+export const Chat = () => {
     const dispatch = useDispatch();
 
     const { token } = useAuth();
@@ -28,6 +29,7 @@ export const Chat = () => {
                 dispatch(channelsAction.addChannels(channels))
                 dispatch(messagesAction.addMessages(messages))
                 dispatch(channelsAction.setCurrentChannelId(currentChannelId))
+                dispatch(channelsAction.setDefaultChannelId(currentChannelId))
             })
             .catch((err) => console.log('ERROR: ', err.response))
     }, [token, dispatch])
@@ -45,6 +47,7 @@ export const Chat = () => {
                     </div>
                 </Col>
             </Row>
+            <Modals />
         </Container>
     )
 }

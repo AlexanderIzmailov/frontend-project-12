@@ -7,6 +7,7 @@ const channelsAdapter = createEntityAdapter();
 
 const initialState = channelsAdapter.getInitialState({
     currentChannelId: null,
+    defaultChannelId: null,
 });
 
 const channelsSlice = createSlice({
@@ -16,8 +17,12 @@ const channelsSlice = createSlice({
         addChannel: channelsAdapter.addOne,
         addChannels: channelsAdapter.addMany,
         updateChannel: channelsAdapter.updateOne,
+        removeChannel: channelsAdapter.removeOne,
         setCurrentChannelId: (state, { payload }) => {
             state.currentChannelId = payload;
+        },
+        setDefaultChannelId: (state, { payload }) => {
+            state.defaultChannelId = payload;
         },
     }
 })
