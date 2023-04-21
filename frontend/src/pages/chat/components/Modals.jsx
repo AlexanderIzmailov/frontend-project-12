@@ -226,7 +226,7 @@ const channelTypes = {
     RemoveChannel,
 }
 
-export default () => {
+const Modals = () => {
     const dispatch = useDispatch();
     const { showModal, modalType } = useSelector((state) => state.modals);
     const handleClose = () => {
@@ -241,3 +241,5 @@ export default () => {
         </Modal>
     )
 }
+
+export default Modals;

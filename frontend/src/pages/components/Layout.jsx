@@ -7,7 +7,7 @@ import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 
 import { actions as modalsAction } from '../../store/slices/modalsSlice.js';
-import { useDispatch, useSelector  } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // const test = () => {
 //   // const dispatch = useDispatch();

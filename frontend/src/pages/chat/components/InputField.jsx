@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import FloatingLabel from 'react-bootstrap/esm/FloatingLabel.js';
 
 export const InputField = () => {
     const socket = useChatApi();
