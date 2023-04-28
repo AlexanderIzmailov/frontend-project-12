@@ -44,6 +44,7 @@ export const Signup = () => {
             console.log('Err: ', err.response.data)
             // formik.setTouched({passwordConfirmation: null})
             formik.setTouched({})
+            formik.setSubmitting(false)
             const { error } = err.response.data
             const errorText = error === 'Conflict' ? t('signupForm.errors.userExist') : error;
             setSignupError(errorText);
@@ -73,7 +74,7 @@ export const Signup = () => {
         // validateOnChange: false,
         // validateOnBlur: false,
     });
-
+    console.log('Formik: ', formik)
     return (
         <div className="container center-block">
             <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0 mx-auto">
@@ -117,7 +118,7 @@ export const Signup = () => {
                             onBlur={formik.handleBlur}
                             value={formik.values.password}
                             placeholder={t('signupForm.password')}
-                            className={(formik.touched.password && formik.errors.password) ? 'is-invalid' : ''}
+                            className={signupError || (formik.touched.password && formik.errors.password) ? 'is-invalid' : ''}
                         />
                         <Form.Text className="text-danger">
                             {formik.touched.password && formik.errors.password ? (
@@ -140,7 +141,7 @@ export const Signup = () => {
                             onBlur={formik.handleBlur}
                             value={formik.values.passwordConfirmation}
                             placeholder={t('signupForm.passwordConfirm')}
-                            className={(formik.touched.passwordConfirmation && formik.errors.passwordConfirmation) ? 'is-invalid' : ''}
+                            className={signupError || (formik.touched.passwordConfirmation && formik.errors.passwordConfirmation) ? 'is-invalid' : ''}
                         />
                         <Form.Text className="text-danger">
                             {formik.touched.passwordConfirmation && formik.errors.passwordConfirmation ? (
