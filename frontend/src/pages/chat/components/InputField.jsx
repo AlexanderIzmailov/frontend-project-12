@@ -8,7 +8,10 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+import { useTranslation } from 'react-i18next';
+
 export const InputField = () => {
+    const { t } = useTranslation();
     const socket = useChatApi();
     const inputFieldRef = useRef(null);
 
@@ -49,7 +52,7 @@ export const InputField = () => {
     const sendMessage = (values) => {
 
         if (!socket.connected) {
-            console.log('Problem with socket')
+            console.log(t('errors.socket'))
             return;
         }
 
@@ -59,7 +62,7 @@ export const InputField = () => {
             { body: values.body, channelId: currentChannelId, username: authUser },
             ({ status }) => {
                 if (status !== 'ok') {
-                    console.log('Problem with connection')
+                    console.log(t('errors.connection'))
                 }
                 setInputActive(true);
             });
@@ -87,7 +90,7 @@ export const InputField = () => {
                     <Form.Control
                         type="text"
                         ref={inputFieldRef}
-                        placeholder="Enter message..."
+                        placeholder={t('chat.inputField')}
                         onChange={formik.handleChange}
                         value={formik.values.body}
                         name="body"
@@ -96,7 +99,7 @@ export const InputField = () => {
                     />
                     <Button type="submit" className="btn btn-group-vertical" variant="outline-light" disabled={!(formik.isValid && formik.dirty) || !isInputActive}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="gray"><path fillRule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"></path></svg>
-                        <span className="visually-hidden">Send</span>
+                        <span className="visually-hidden">{t('chat.send')}</span>
                     </Button>
                 </Form.Group>
             </Form>
