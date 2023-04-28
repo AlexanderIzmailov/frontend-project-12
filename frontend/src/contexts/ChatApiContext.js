@@ -14,6 +14,11 @@ export const ChatApiProvider = (props) => {
   const socket = io();
   const { currentChannelId,  defaultChannelId} = useSelector((state) => state.channels);
 
+  socket.on("connect_error", (err) => {
+    console.log(`connect_error due to ${err.message}`);
+    // console.log('AAAAAAAAAA')
+  });
+
   socket.on('newMessage', (msg) => {
     store.dispatch(messageAction.addMessage(msg))
   })

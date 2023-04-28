@@ -7,6 +7,7 @@ const routes = {
           'Authorization': `Bearer ${token}`,
         }
       }),
+    createUser: (username, password) => axios.post('/api/v1/signup', { username, password }),
 }
 
 export default routes;

@@ -15,7 +15,10 @@ import { actions as channelsAction } from '../../../store/slices/channelsSlice.j
 
 import { actions as modalsAction } from '../../../store/slices/modalsSlice.js';
 
+import { useTranslation } from 'react-i18next';
+
 const AddChannel = ({ handleClose }) => {
+    const { t } = useTranslation();
     const socket = useChatApi();
     const dispatch = useDispatch();
     const inputModalRef = useRef(null);
@@ -30,7 +33,7 @@ const AddChannel = ({ handleClose }) => {
 
     const addChannel = (values) => {
         if (!socket.connected) {
-            console.log('Problem with socket')
+            console.log(t('errors.socket'))
             return;
         }
 
@@ -40,7 +43,7 @@ const AddChannel = ({ handleClose }) => {
             { name: values.channelName },
             ({ status, data }) => {
                 if (status !== 'ok') {
-                    console.log('Problem with connection')
+                    console.log(t('errors.connection'))
                 } else {
                     dispatch(channelsAction.setCurrentChannelId(data.id))
                 }
@@ -58,8 +61,8 @@ const AddChannel = ({ handleClose }) => {
             channelName: Yup
                 .string()
                 .trim()
-                .required('Обязательное поле')
-                .notOneOf(channels, 'Должно быть уникальным'),
+                .required(t('modals.errors.requiredField'))
+                .notOneOf(channels, t('modals.errors.channelExist')),
         }),
         onSubmit: (values) => {
             addChannel(values)
@@ -70,7 +73,7 @@ const AddChannel = ({ handleClose }) => {
     return (
         <>
             <Modal.Header closeButton>
-                <Modal.Title className="h4">Добавить канал</Modal.Title>
+                <Modal.Title className="h4">{t('modals.addChannel')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
@@ -88,8 +91,8 @@ const AddChannel = ({ handleClose }) => {
                             {formik.errors && formik.errors.channelName}
                         </div>
                         <div className="d-flex justify-content-end">
-                            <Button className="me-2 btn btn-secondary" onClick={handleClose}>Отменить</Button>
-                            <Button className="btn btn-primary" type="submit" disabled={!isInputActive}>Отправить</Button>
+                            <Button className="me-2 btn btn-secondary" onClick={handleClose}>{t('modals.cancelBtn')}</Button>
+                            <Button className="btn btn-primary" type="submit" disabled={!isInputActive}>{t('modals.sendBtn')}</Button>
                         </div>
                     </Form.Group>
                 </Form>
@@ -99,6 +102,7 @@ const AddChannel = ({ handleClose }) => {
 }
 
 const RenameChannel = ({ handleClose }) => {
+    const { t } = useTranslation();
     const socket = useChatApi();
     const inputModalRef = useRef(null);
     const [isInputActive, setInputActive] = useState(true);
@@ -112,7 +116,7 @@ const RenameChannel = ({ handleClose }) => {
 
     const renameChannel = (values) => {
         if (!socket.connected) {
-            console.log('Problem with socket')
+            console.log(t('errors.socket'))
             return;
         }
 
@@ -122,7 +126,7 @@ const RenameChannel = ({ handleClose }) => {
             { id: channelId, name: values.channelName },
             ({ status }) => {
                 if (status !== 'ok') {
-                    console.log('Problem with connection')
+                    console.log(t('errors.connection'))
                 }
                 setInputActive(true);
             });
@@ -138,8 +142,8 @@ const RenameChannel = ({ handleClose }) => {
             channelName: Yup
                 .string()
                 .trim()
-                .required('Обязательное поле')
-                .notOneOf(channels, 'Должно быть уникальным'),
+                .required(t('modals.errors.requiredField'))
+                .notOneOf(channels, t('modals.errors.channelExist')),
         }),
         onSubmit: (values) => {
             renameChannel(values)
@@ -150,7 +154,7 @@ const RenameChannel = ({ handleClose }) => {
     return (
         <>
             <Modal.Header closeButton>
-                <Modal.Title className="h4">Переименовать канал</Modal.Title>
+                <Modal.Title className="h4">{t('modals.renameChannel')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
@@ -168,8 +172,8 @@ const RenameChannel = ({ handleClose }) => {
                             {formik.errors && formik.errors.channelName}
                         </div>
                         <div className="d-flex justify-content-end">
-                            <Button className="me-2 btn btn-secondary" onClick={handleClose}>Отменить</Button>
-                            <Button className="btn btn-primary" type="submit" disabled={!isInputActive}>Отправить</Button>
+                            <Button className="me-2 btn btn-secondary" onClick={handleClose}>{t('modals.sendBtn')}</Button>
+                            <Button className="btn btn-primary" type="submit" disabled={!isInputActive}>{t('modals.cancelBtn')}</Button>
                         </div>
                     </Form.Group>
                 </Form>
@@ -179,13 +183,14 @@ const RenameChannel = ({ handleClose }) => {
 }
 
 const RemoveChannel = ({ handleClose }) => {
+    const { t } = useTranslation();
     const socket = useChatApi();
     const { channelId } = useSelector((state) => state.modals);
 
     const removeChannel = (e) => {
         e.preventDefault();
         if (!socket.connected) {
-            console.log('Problem with socket')
+            console.log(t('errors.socket'))
             return;
         }
 
@@ -194,7 +199,7 @@ const RemoveChannel = ({ handleClose }) => {
             { id: channelId },
             ({ status }) => {
                 if (status !== 'ok') {
-                    console.log('Problem with connection')
+                    console.log(t('errros.connection'))
                 }
                 handleClose()
             });
@@ -203,15 +208,15 @@ const RemoveChannel = ({ handleClose }) => {
     return (
         <>
             <Modal.Header closeButton>
-                <Modal.Title className="h4">Удалить канал</Modal.Title>
+                <Modal.Title className="h4">{t('modals.removeChannel')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p className="lead">Уверены?</p>
+                <p className="lead">{t('modals.removeChannelConfirm')}</p>
                 <Form onSubmit={removeChannel}>
                     <Form.Group>
                         <div className="d-flex justify-content-end">
-                            <Button className="me-2 btn btn-secondary" onClick={handleClose}>Отменить</Button>
-                            <Button className="btn btn-danger" type="submit">Удалить</Button>
+                            <Button className="me-2 btn btn-secondary" onClick={handleClose}>{t('modals.cancelBtn')}</Button>
+                            <Button className="btn btn-danger" type="submit">{t('modals.removeBtn')}</Button>
                         </div>
                     </Form.Group>
                 </Form>

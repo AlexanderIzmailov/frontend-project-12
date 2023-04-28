@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; 
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './pages/components/Layout.jsx';
 import { Login } from './pages/Login.jsx';
+import { Signup } from './pages/Signup.jsx';
 import { PageNotFound } from './pages/PageNotFound.jsx';
 import { Chat } from './pages/chat/Chat.jsx'
 import { AuthProvider } from './contexts/AuthContext.js';
@@ -9,6 +10,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store/index.js';
 import { Provider } from 'react-redux';
 import React, { useEffect } from 'react';
+
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n.js';
 
 // import io from 'socket.io-client';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -45,20 +49,23 @@ function App() {
 
   return (
     <Provider store={store}>
-      <AuthProvider>
-        <ChatApiProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route path="/" element={<CheckAuth />} />
-                {/* <Route index element={<Navigate to='/login' />}/> */}
-                <Route path="*" element={<PageNotFound />} />
-                <Route path="login" element={<Login />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </ChatApiProvider>
-      </AuthProvider>
+      <I18nextProvider i18n={i18n}>
+        <AuthProvider>
+          <ChatApiProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route path="/" element={<CheckAuth />} />
+                  {/* <Route index element={<Navigate to='/login' />}/> */}
+                  <Route path="*" element={<PageNotFound />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="signup" element={<Signup />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </ChatApiProvider>
+        </AuthProvider>
+      </I18nextProvider>
     </Provider>
   )
 }

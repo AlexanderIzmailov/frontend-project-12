@@ -2,6 +2,7 @@ import { selectors as messagesSelectors } from '../../../store/slices/messagesSl
 import { selectors as channelsSelectors } from '../../../store/slices/channelsSlice.js';
 import { useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const renderMessages = (messages, currentChannelId) => {
     return (
@@ -17,6 +18,7 @@ const renderMessages = (messages, currentChannelId) => {
 }
 
 export const Messages = () => {
+    const { t } = useTranslation();
     const bottomChatRef = useRef(null);
     const messages = useSelector(messagesSelectors.selectAll);
     const { currentChannelId } = useSelector((state) => state.channels);
@@ -25,11 +27,9 @@ export const Messages = () => {
         bottomChatRef.current?.scrollIntoView();
     }, [messages.length, currentChannelId])
 
-    const GetNumberOfMessages = () => (
-        useSelector(messagesSelectors.selectAll)
+    const numberOfMessages = useSelector(messagesSelectors.selectAll)
             .filter((msg) => msg.channelId === currentChannelId)
             .length
-    )
 
     const GetCurrentChannelName = () => (
         useSelector(channelsSelectors.selectAll)
@@ -43,7 +43,7 @@ export const Messages = () => {
                 <p className="m-0">
                     <b># {GetCurrentChannelName()}</b>
                 </p>
-                <span className="text-muted">{GetNumberOfMessages()} mesages</span>
+                <span className="text-muted">{t('chat.numberMessages.number', { count: numberOfMessages })}</span>
             </div>
             <div className="overflow-auto px-5">
                 {renderMessages(messages, currentChannelId)}

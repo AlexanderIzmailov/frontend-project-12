@@ -93,9 +93,7 @@ export const Login = () => {
     }),
     onSubmit: (values) => {
       LogInToServer(values);
-    },
-    // validateOnChange: false,
-    // validateOnBlur: false,
+    }
   });
 
   return (

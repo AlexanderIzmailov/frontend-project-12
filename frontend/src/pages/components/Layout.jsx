@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, Navigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +8,9 @@ import Nav from 'react-bootstrap/Nav';
 
 import { actions as modalsAction } from '../../store/slices/modalsSlice.js';
 import { useDispatch } from 'react-redux';
+import { useAuth } from '../../contexts/AuthContext.js';
+
+import { useTranslation } from 'react-i18next';
 
 // const test = () => {
 //   // const dispatch = useDispatch();
@@ -23,6 +26,9 @@ const LSRemove = () => {
 }
 
 export const Layout = () => {
+
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const test = () => {
@@ -34,36 +40,54 @@ export const Layout = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleShow = () => setShow(true);
+  // const [user, setUser] = usetState(null);
+  // const user = JSON.parse(localStorage.getItem('user'))
+  const { authUser, setAuthUser, setIsLoggedIn, setToken } = useAuth();
+
+  const logout = () => {
+    setAuthUser(null)
+    setIsLoggedIn(false)
+    setToken(null)
+    localStorage.clear()
+
+    return <Navigate to="login" />
+  }
 
   return (
     <>
       <div className="d-flex flex-column h-100">
-        <Nav>
-          <Nav.Item>
-            <Link className="nav-link" to="/">Chat</Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link className="nav-link" to="api/v1/data">Server</Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link className="nav-link" to="login">Login</Link>
-          </Nav.Item>
-          <div className="text-center">
-            <Button onClick={LSRemove} className="mx-auto" variant="warning">LS.remove</Button>
-          </div>
-          <div className="text-center">
-            <Button onClick={handleShow} className="mx-auto" variant="warning">Test</Button>
-          </div>
-          <div className="text-center">
-            <Button onClick={test} className="mx-auto" variant="warning">Test 2</Button>
-          </div>
+        <Nav className="d-flex shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+          <div className="container">
+            <Nav.Item>
+              <Link className="navbar-brand nav-link align-middle" to="/">Hexlet Chat</Link>
+            </Nav.Item>
+            {/* <Nav.Item>
+              <Link className="nav-link" to="api/v1/data">Server</Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link className="nav-link" to="login">Login</Link>
+            </Nav.Item>
+            <div className="text-center">
+              <Button onClick={LSRemove} variant="warning">LS.remove</Button>
+            </div> */}
 
+            {authUser ?
+              <Nav.Item className="ms-auto">
+                <Link className="nav-link" to="login" onClick={logout}>{t('loginForm.logout')}</Link>
+              </Nav.Item>
+              :
+              null
+            }
+
+          </div>
         </Nav>
+
+
         <Outlet />
       </div>
 
-      <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title className="h4">Добавить канал</Modal.Title>
         </Modal.Header>
@@ -76,9 +100,9 @@ export const Layout = () => {
                 type="text"
                 name="name"
                 className="mb-2 form-control"
-                // disabled={!isInputActive}
-                // value={inputField}
-                // onChange={(e) => setInputField(e.target.value)}
+              // disabled={!isInputActive}
+              // value={inputField}
+              // onChange={(e) => setInputField(e.target.value)}
               />
               <Form.Label className="visually-hidden">
                 Имя канала
@@ -91,7 +115,7 @@ export const Layout = () => {
             </Form.Group>
           </Form>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </>
   )
 }
