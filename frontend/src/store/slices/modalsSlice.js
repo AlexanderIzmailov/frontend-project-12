@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 const modalsAdapter = createEntityAdapter();
@@ -21,8 +22,8 @@ const modalSlice = createSlice({
         setChannelId: (state, { payload }) => {
             state.channelId = payload;
         },
-    }
-})
+    },
+});
 
 export default modalSlice.reducer;
 export const selectors = modalsAdapter.getSelectors((state) => state.modals);

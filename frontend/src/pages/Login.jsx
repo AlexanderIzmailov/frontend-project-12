@@ -1,68 +1,17 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-
-import { useState, useEffect } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-
-import { useAuth } from '../contexts/AuthContext';
-
-import routes from '../routes.js';
-
-import { useTranslation } from 'react-i18next';
-
-import io from 'socket.io-client';
-// import * as io from 'socket.io-client'
-
 import { FocusError } from 'focus-formik-error';
-
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import routes from '../routes.js';
 import toast from './components/toasts.js';
 
-const test = () => {
-  //  routes.authorise('admin', 'admin')
-  //   .then((response) => response.data.token)
-  //   .then((token) => routes.getData(token))
-  //   .then((response) => console.log(response.data))
-  //   .catch((err) => console.log('ERR: ', err.response.data))
-  // const { token } = useAuth();
-  // console.log('TOKENNL ', token)
-  // document.querySelector('html').classList.add('h-100')
-  // document.body.classList.add('h-100')
-  // document.querySelector('#root').classList.add('h-100')
-
-  // const socket = io();
-  // socket.on('connection', (newSocket) => {
-  //   console.log('User connnnnected');
-  //   newSocket.on('disconnect', () => {
-  //     console.log('User disconnnnected')
-  //   })
-  // })
-  // socket.emit('newMessage', 'Test message 1')
-  // socket.emit('newMessage', { body: "message text", channelId: 1, username: 'admin' });
-  // socket.on('newMessage', (msg) => {
-  //   console.log('New message: ', msg)
-  // })
-
-}
-
 export const Login = () => {
-  // const notify = () => toast("Wow so easy!", {
-  //   position: "top-right",
-  //   autoClose: 5000,
-  //   hideProgressBar: false,
-  //   closeOnClick: true,
-  //   pauseOnHover: true,
-  //   draggable: true,
-  //   progress: undefined,
-  //   theme: "dark",
-  //   });
 
   const { t } = useTranslation();
 
@@ -86,12 +35,12 @@ export const Login = () => {
         setAuthUser(username);
         setToken(token);
         setIsLoggedIn(true);
-        navigate('/')
+        navigate('/');
       })
       .catch((err) => {
         // console.log('Err: ', err.code)
-        console.log('Err: ', err.response.data)
-        const { error } = err.response.data
+        console.log('Err: ', err.response.data);
+        const { error } = err.response.data;
 
         // const errorTextKey = error === 'Unauthorized' ? 'loginForm.errors.invalidAuth' : error;
         // setAuthError(t(errorTextKey));
@@ -128,7 +77,6 @@ export const Login = () => {
       <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0 mx-auto">
         <FocusError formik={formik} />
         <h1 className="text-center mb-4">{t('loginForm.title')}</h1>
-
         <Form.Group className="mb-3">
           <FloatingLabel
             controlId="userName"
@@ -183,7 +131,9 @@ export const Login = () => {
       </Form>
 
       <div className="text-center">
-        <span>{t('loginForm.invitationToRegister')} </span>
+        <span>
+          {t('loginForm.invitationToRegister')}
+        </span>
         <a href="/signup">{t('loginForm.registerLink')}</a>
       </div>
 
@@ -193,4 +143,4 @@ export const Login = () => {
       {/* <ToastContainer /> */}
     </div>
   )
-}
+};
