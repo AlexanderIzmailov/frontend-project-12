@@ -19,6 +19,8 @@ import { useTranslation } from 'react-i18next';
 
 import toast from '../../components/toasts.js';
 
+import filter from 'leo-profanity';
+
 const AddChannel = ({ handleClose }) => {
     const { t } = useTranslation();
     const socket = useChatApi();
@@ -43,7 +45,7 @@ const AddChannel = ({ handleClose }) => {
         setInputActive(false)
         socket.emit(
             'newChannel',
-            { name: values.channelName },
+            { name: filter.clean(values.channelName) },
             ({ status, data }) => {
                 if (status === 'ok') {
                     dispatch(channelsAction.setCurrentChannelId(data.id))
@@ -66,6 +68,7 @@ const AddChannel = ({ handleClose }) => {
             channelName: Yup
                 .string()
                 .trim()
+                // .test('filter', (value) => filter.clean(value))
                 .required(t('modals.errors.requiredField'))
                 .notOneOf(channels, t('modals.errors.channelExist')),
         }),
@@ -129,7 +132,7 @@ const RenameChannel = ({ handleClose }) => {
         setInputActive(false)
         socket.emit(
             'renameChannel',
-            { id: channelId, name: values.channelName },
+            { id: channelId, name: filter.clean(values.channelName) },
             ({ status }) => {
                 if (status === 'ok') {
                     toast.success(t('chat.toasts.renameChannel'))
@@ -151,6 +154,7 @@ const RenameChannel = ({ handleClose }) => {
             channelName: Yup
                 .string()
                 .trim()
+                // .test('filter', (value) => filter.clean(value))
                 .required(t('modals.errors.requiredField'))
                 .notOneOf(channels, t('modals.errors.channelExist')),
         }),

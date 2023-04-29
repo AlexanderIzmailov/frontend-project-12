@@ -10,6 +10,8 @@ import * as Yup from 'yup';
 
 import { useTranslation } from 'react-i18next';
 
+import filter from 'leo-profanity';
+
 export const InputField = () => {
     const { t } = useTranslation();
     const socket = useChatApi();
@@ -50,7 +52,6 @@ export const InputField = () => {
     // }
 
     const sendMessage = (values) => {
-
         if (!socket.connected) {
             console.log(t('errors.socket'))
             return;
@@ -59,7 +60,7 @@ export const InputField = () => {
         setInputActive(false)
         socket.emit(
             'newMessage',
-            { body: values.body, channelId: currentChannelId, username: authUser },
+            { body: filter.clean(values.body), channelId: currentChannelId, username: authUser },
             ({ status }) => {
                 if (status !== 'ok') {
                     console.log(t('errors.connection'))
@@ -90,6 +91,7 @@ export const InputField = () => {
                     <Form.Control
                         type="text"
                         ref={inputFieldRef}
+                        aria-label={t('chat.inputLabel')}
                         placeholder={t('chat.inputField')}
                         onChange={formik.handleChange}
                         value={formik.values.body}

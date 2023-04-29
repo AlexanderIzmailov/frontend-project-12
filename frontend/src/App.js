@@ -12,10 +12,16 @@ import { Provider } from 'react-redux';
 import React, { useEffect } from 'react';
 
 import { I18nextProvider } from 'react-i18next';
-import i18n from './i18n.js';
+// import i18n from './i18n.js';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import filter from 'leo-profanity';
+
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import resources from './locales/index.js';
 
 // import io from 'socket.io-client';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -44,6 +50,17 @@ import 'react-toastify/dist/ReactToastify.css';
 const CheckAuth = () => localStorage.getItem('user') ? <Chat /> : <Navigate to="login" />;
 
 function App() {
+  i18n
+    .use(initReactI18next)
+    .init({
+      debug: false,
+      lng: 'ru',
+      resources,
+    });
+
+  const dictionaries = filter.getDictionary('ru', 'en');
+  filter.add(dictionaries)
+
   useEffect(() => {
     document.querySelector('html').classList.add('h-100')
     document.body.classList.add('h-100')

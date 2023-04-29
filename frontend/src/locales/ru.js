@@ -43,6 +43,7 @@ export default {
                 number_few: '{{count}} сообщения',
                 number_many: '{{count}} сообщений',
             },
+            inputLabel: 'Новое сообщение',
         },
         modals: {
             addChannel: 'Добавить канал',
