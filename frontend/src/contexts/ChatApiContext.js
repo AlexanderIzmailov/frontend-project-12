@@ -45,5 +45,5 @@ export const ChatApiProvider = (props) => {
     <ChatApi.Provider value={socket}>
       {children}
     </ChatApi.Provider>
-  )
-}
+  );
+};

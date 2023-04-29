@@ -61,18 +61,17 @@ const Channels = () => {
 
     return (
       <li className="nav-item w-100" key={id}>
-        {removable ?
-          (
+        {removable
+          ? (
             <div role="group" className="d-flex dropdown btn-group show">
               {mainButton}
               {createDropdown(btnClass, id)}
             </div>
-          )
-          :
-          <>
-            {mainButton}
-          </>
-        }
+          ) : (
+            <>
+              {mainButton}
+            </>
+          )}
       </li>
     );
   });

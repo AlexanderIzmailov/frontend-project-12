@@ -26,7 +26,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const CheckAuth = () => (localStorage.getItem('user') ? <Chat /> : <Navigate to="login" />);
 
-const App = function() {
+const App = () => {
   i18n
     .use(initReactI18next)
     .init({

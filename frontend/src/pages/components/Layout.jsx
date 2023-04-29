@@ -12,7 +12,7 @@ const Layout = () => {
     authUser,
     setAuthUser,
     setIsLoggedIn,
-    setToken
+    setToken,
   } = useAuth();
 
   const logout = () => {
@@ -21,7 +21,7 @@ const Layout = () => {
     setToken(null);
     localStorage.clear();
 
-    return <Navigate to="login" />
+    return <Navigate to="login" />;
   };
 
   return (
@@ -33,11 +33,12 @@ const Layout = () => {
               <Link className="navbar-brand nav-link align-middle" to="/">Hexlet Chat</Link>
             </Nav.Item>
 
-            {authUser?
-              (<Nav.Item className="ms-auto">
-                <Link className="nav-link" to="login" onClick={logout}>{t('loginForm.logout')}</Link>
-              </Nav.Item>)
-              : null}
+            {authUser
+              ? (
+                <Nav.Item className="ms-auto">
+                  <Link className="nav-link" to="login" onClick={logout}>{t('loginForm.logout')}</Link>
+                </Nav.Item>
+              ) : null}
 
           </div>
         </Nav>

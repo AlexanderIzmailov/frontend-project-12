@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 
 import {
-  selectors as channelsSelectors, 
-  actions as channelsAction
+  selectors as channelsSelectors,
+  actions as channelsAction,
 } from '../../../store/slices/channelsSlice.js';
 
 import { useChatApi } from '../../../contexts/ChatApiContext.js';
@@ -53,7 +53,7 @@ const AddChannel = ({ handleClose }) => {
           toast.error(t('errors.connection'));
         }
         setInputActive(true);
-      }
+      },
     );
   };
 
@@ -148,7 +148,7 @@ const RenameChannel = ({ handleClose }) => {
           toast.error(t('errors.connection'));
         }
         setInputActive(true);
-      }
+      },
     );
   };
 
@@ -234,7 +234,7 @@ const RemoveChannel = ({ handleClose }) => {
           toast.error(t('erros.connection'));
         }
         handleClose();
-      }
+      },
     );
   };
 
