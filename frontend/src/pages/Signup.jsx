@@ -17,6 +17,8 @@ import { useTranslation } from 'react-i18next';
 
 import routes from '../routes.js';
 
+import toast from './components/toasts.js';
+
 export const Signup = () => {
     const { t } = useTranslation();
     const [signupError, setSignupError] = useState(null);
@@ -46,8 +48,15 @@ export const Signup = () => {
             formik.setTouched({})
             formik.setSubmitting(false)
             const { error } = err.response.data
-            const errorText = error === 'Conflict' ? t('signupForm.errors.userExist') : error;
-            setSignupError(errorText);
+
+            // const errorText = error === 'Conflict' ? t('signupForm.errors.userExist') : error;
+            // setSignupError(errorText);
+
+            if (error === 'Conflict') {
+                setSignupError(t('signupForm.errors.userExist'));
+              } else {
+                toast.error(t('errors.connection'));
+              }
           })
       }
     const formik = useFormik({
@@ -74,7 +83,7 @@ export const Signup = () => {
         // validateOnChange: false,
         // validateOnBlur: false,
     });
-    console.log('Formik: ', formik)
+    // console.log('Formik: ', formik)
     return (
         <div className="container center-block">
             <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0 mx-auto">

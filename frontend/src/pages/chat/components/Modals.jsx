@@ -17,6 +17,8 @@ import { actions as modalsAction } from '../../../store/slices/modalsSlice.js';
 
 import { useTranslation } from 'react-i18next';
 
+import toast from '../../components/toasts.js';
+
 const AddChannel = ({ handleClose }) => {
     const { t } = useTranslation();
     const socket = useChatApi();
@@ -34,6 +36,7 @@ const AddChannel = ({ handleClose }) => {
     const addChannel = (values) => {
         if (!socket.connected) {
             console.log(t('errors.socket'))
+            toast.error(t('errors.socket'))
             return;
         }
 
@@ -42,10 +45,12 @@ const AddChannel = ({ handleClose }) => {
             'newChannel',
             { name: values.channelName },
             ({ status, data }) => {
-                if (status !== 'ok') {
-                    console.log(t('errors.connection'))
-                } else {
+                if (status === 'ok') {
                     dispatch(channelsAction.setCurrentChannelId(data.id))
+                    toast.success(t('chat.toasts.addChannel'))
+                } else {
+                    console.log(t('errors.connection'))
+                    toast.error(t('errors.connection'))
                 }
                 setInputActive(true);
             });
@@ -117,6 +122,7 @@ const RenameChannel = ({ handleClose }) => {
     const renameChannel = (values) => {
         if (!socket.connected) {
             console.log(t('errors.socket'))
+            toast.error(t('errors.socket'))
             return;
         }
 
@@ -125,8 +131,11 @@ const RenameChannel = ({ handleClose }) => {
             'renameChannel',
             { id: channelId, name: values.channelName },
             ({ status }) => {
-                if (status !== 'ok') {
+                if (status === 'ok') {
+                    toast.success(t('chat.toasts.renameChannel'))
+                } else {
                     console.log(t('errors.connection'))
+                    toast.error(t('errors.connection'))
                 }
                 setInputActive(true);
             });
@@ -172,8 +181,8 @@ const RenameChannel = ({ handleClose }) => {
                             {formik.errors && formik.errors.channelName}
                         </div>
                         <div className="d-flex justify-content-end">
-                            <Button className="me-2 btn btn-secondary" onClick={handleClose}>{t('modals.sendBtn')}</Button>
-                            <Button className="btn btn-primary" type="submit" disabled={!isInputActive}>{t('modals.cancelBtn')}</Button>
+                            <Button className="me-2 btn btn-secondary" onClick={handleClose}>{t('modals.cancelBtn')}</Button>
+                            <Button className="btn btn-primary" type="submit" disabled={!isInputActive}>{t('modals.sendBtn')}</Button>
                         </div>
                     </Form.Group>
                 </Form>
@@ -191,6 +200,7 @@ const RemoveChannel = ({ handleClose }) => {
         e.preventDefault();
         if (!socket.connected) {
             console.log(t('errors.socket'))
+            toast.error(t('errors.socket'))
             return;
         }
 
@@ -198,8 +208,11 @@ const RemoveChannel = ({ handleClose }) => {
             'removeChannel',
             { id: channelId },
             ({ status }) => {
-                if (status !== 'ok') {
-                    console.log(t('errros.connection'))
+                if (status === 'ok') {
+                    toast.success(t('chat.toasts.removeChannel'))
+                } else {
+                    console.log(t('erros.connection'))
+                    toast.error(t('erros.connection'))
                 }
                 handleClose()
             });

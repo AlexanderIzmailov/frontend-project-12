@@ -14,6 +14,9 @@ import React, { useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n.js';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // import io from 'socket.io-client';
 // import { useDispatch, useSelector } from 'react-redux';
 // // import { actions as channelsAction } from './slices/channelsSlice.js';
@@ -52,6 +55,7 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <AuthProvider>
           <ChatApiProvider>
+            <ToastContainer />
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Layout />}>

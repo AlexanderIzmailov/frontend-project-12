@@ -33,11 +33,16 @@ export default {
             inputField: 'Введите сообщение...',
             removeChannel: 'Удалить',
             renameChannel: 'Переименовать',
+            toasts: {
+                addChannel: 'Канал создан',
+                removeChannel: 'Канал удалён',
+                renameChannel: 'Канал переименован',
+            },
             numberMessages: {
                 number_one: '{{count}} сообщение',
                 number_few: '{{count}} сообщения',
                 number_many: '{{count}} сообщений',
-            }
+            },
         },
         modals: {
             addChannel: 'Добавить канал',
@@ -56,6 +61,6 @@ export default {
         errors: {
             socket: 'Проблема с сокетом',
             connection: 'Проблема с соединением',
-        }
+        },
     },
   };

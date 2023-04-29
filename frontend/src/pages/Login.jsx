@@ -20,6 +20,11 @@ import io from 'socket.io-client';
 
 import { FocusError } from 'focus-formik-error';
 
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+import toast from './components/toasts.js';
+
 const test = () => {
   //  routes.authorise('admin', 'admin')
   //   .then((response) => response.data.token)
@@ -48,6 +53,17 @@ const test = () => {
 }
 
 export const Login = () => {
+  // const notify = () => toast("Wow so easy!", {
+  //   position: "top-right",
+  //   autoClose: 5000,
+  //   hideProgressBar: false,
+  //   closeOnClick: true,
+  //   pauseOnHover: true,
+  //   draggable: true,
+  //   progress: undefined,
+  //   theme: "dark",
+  //   });
+
   const { t } = useTranslation();
 
   const [authError, setAuthError] = useState(null);
@@ -73,10 +89,18 @@ export const Login = () => {
         navigate('/')
       })
       .catch((err) => {
+        // console.log('Err: ', err.code)
         console.log('Err: ', err.response.data)
         const { error } = err.response.data
-        const errorTextKey = error === 'Unauthorized' ? 'loginForm.errors.invalidAuth' : error;
-        setAuthError(t(errorTextKey));
+
+        // const errorTextKey = error === 'Unauthorized' ? 'loginForm.errors.invalidAuth' : error;
+        // setAuthError(t(errorTextKey));
+
+        if (error === 'Unauthorized') {
+          setAuthError(t('loginForm.errors.invalidAuth'));
+        } else {
+          toast.error(t('errors.connection'));
+        }
       })
   }
 
@@ -164,8 +188,9 @@ export const Login = () => {
       </div>
 
       <div className="text-center">
-        <Button onClick={test} className="mx-auto" variant="warning">Test</Button>
+        <Button onClick={() => toast.success('aaaa')} className="mx-auto" variant="warning">Test</Button>
       </div>
+      {/* <ToastContainer /> */}
     </div>
   )
 }
