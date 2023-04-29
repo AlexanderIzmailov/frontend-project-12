@@ -1,4 +1,4 @@
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const error = (msg) => toast.error(msg, {
     position: "top-right",
@@ -22,7 +22,9 @@ const success = (msg) => toast.success(msg, {
     theme: "light",
     });
 
-export default {
+const toasts = {
     success,
     error,
 }
+
+export default toasts;

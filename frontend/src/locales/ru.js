@@ -44,6 +44,7 @@ export default {
                 number_many: '{{count}} сообщений',
             },
             inputLabel: 'Новое сообщение',
+            manageChannelSpan: 'Управление каналом',
         },
         modals: {
             addChannel: 'Добавить канал',

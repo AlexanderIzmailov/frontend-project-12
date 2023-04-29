@@ -39,7 +39,9 @@ export const Channels = () => {
     const createDropdown = (btnClass, id) => {
         return (
             <Dropdown>
-                <Dropdown.Toggle className={`rounded-0 flex-grow-0 dropdown-toggle dropdown-toggle-split btn ${btnClass}`} />
+                <Dropdown.Toggle className={`rounded-0 flex-grow-0 dropdown-toggle dropdown-toggle-split btn ${btnClass}`}>
+                    <span className="visually-hidden">{t('chat.manageChannelSpan')}</span>
+                </Dropdown.Toggle>
                 <Dropdown.Menu>
                     <Dropdown.Item onClick={() => removeChannel(id)}>{t('chat.removeChannel')}</Dropdown.Item>
                     <Dropdown.Item onClick={() => renameChannel(id)}>{t('chat.renameChannel')}</Dropdown.Item>
