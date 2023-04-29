@@ -94,6 +94,7 @@ const AddChannel = ({ handleClose }) => {
                             onChange={formik.handleChange}
                             value={formik.values.channelName}
                             name="channelName"
+                            id="channelName"
                             disabled={!isInputActive}
                             className={`mb-2 form-control ${formik.errors.channelName ? 'is-invalid' : ''}`}
                         />
@@ -187,6 +188,7 @@ const RenameChannel = ({ handleClose }) => {
                             onChange={formik.handleChange}
                             value={formik.values.channelName}
                             name="channelName"
+                            id="channelName"
                             disabled={!isInputActive}
                             className={`mb-2 form-control ${formik.errors.channelName ? 'is-invalid' : ''}`}
                         />
