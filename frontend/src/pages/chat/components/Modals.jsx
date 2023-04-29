@@ -88,21 +88,21 @@ const AddChannel = ({ handleClose }) => {
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
                     <Form.Group>
+                        <Form.Control
+                            type="text"
+                            ref={inputModalRef}
+                            onChange={formik.handleChange}
+                            value={formik.values.channelName}
+                            name="channelName"
+                            disabled={!isInputActive}
+                            className={`mb-2 form-control ${formik.errors.channelName ? 'is-invalid' : ''}`}
+                        />
                         <Form.Label
                             className="visually-hidden"
                             htmlFor="channelName"
                         >
                             {t('modals.addChannelLabel')}
                         </Form.Label>
-                        <Form.Control
-                                type="text"
-                                ref={inputModalRef}
-                                onChange={formik.handleChange}
-                                value={formik.values.channelName}
-                                name="channelName"
-                                disabled={!isInputActive}
-                                className={`mb-2 form-control ${formik.errors.channelName ? 'is-invalid' : ''}`}
-                            />
                         <div className="invalid-feedback">
                             {formik.errors && formik.errors.channelName}
                         </div>
@@ -110,7 +110,7 @@ const AddChannel = ({ handleClose }) => {
                             <Button className="me-2 btn btn-secondary" onClick={handleClose}>{t('modals.cancelBtn')}</Button>
                             <Button className="btn btn-primary" type="submit" disabled={!isInputActive}>{t('modals.sendBtn')}</Button>
                         </div>
-                        
+
                     </Form.Group>
                 </Form>
             </Modal.Body>
@@ -181,12 +181,6 @@ const RenameChannel = ({ handleClose }) => {
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
                     <Form.Group>
-                        <Form.Label
-                            className="visually-hidden"
-                            htmlFor="channelName"
-                        >
-                            {t('modals.addChannelLabel')}
-                        </Form.Label>
                         <Form.Control
                             type="text"
                             ref={inputModalRef}
@@ -196,6 +190,12 @@ const RenameChannel = ({ handleClose }) => {
                             disabled={!isInputActive}
                             className={`mb-2 form-control ${formik.errors.channelName ? 'is-invalid' : ''}`}
                         />
+                        <Form.Label
+                            className="visually-hidden"
+                            htmlFor="channelName"
+                        >
+                            {t('modals.addChannelLabel')}
+                        </Form.Label>
                         <div className="invalid-feedback">
                             {formik.errors && formik.errors.channelName}
                         </div>
