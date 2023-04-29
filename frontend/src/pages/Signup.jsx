@@ -140,7 +140,7 @@ export const Signup = () => {
         <Form.Group className="mb-3">
           <FloatingLabel
             controlId="passwordConfirm"
-            label={t('signupForm.passwordConfirmation')}
+            label={t('signupForm.passwordConfirm')}
             className="mb-3"
           >
             <Form.Control
