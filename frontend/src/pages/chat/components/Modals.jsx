@@ -8,11 +8,12 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 
-import { selectors as channelsSelectors } from '../../../store/slices/channelsSlice.js';
+import {
+  selectors as channelsSelectors, 
+  actions as channelsAction
+} from '../../../store/slices/channelsSlice.js';
 
 import { useChatApi } from '../../../contexts/ChatApiContext.js';
-
-import { actions as channelsAction } from '../../../store/slices/channelsSlice.js';
 
 import { actions as modalsAction } from '../../../store/slices/modalsSlice.js';
 
@@ -112,8 +113,8 @@ const AddChannel = ({ handleClose }) => {
         </Form>
       </Modal.Body>
     </>
-  )
-}
+  );
+};
 
 const RenameChannel = ({ handleClose }) => {
   const { t } = useTranslation();
@@ -135,21 +136,21 @@ const RenameChannel = ({ handleClose }) => {
       return;
     }
 
-    setInputActive(false)
+    setInputActive(false);
     socket.emit(
       'renameChannel',
       { id: channelId, name: filter.clean(values.channelName) },
       ({ status }) => {
         if (status === 'ok') {
-          toast.success(t('chat.toasts.renameChannel'))
+          toast.success(t('chat.toasts.renameChannel'));
         } else {
-          console.log(t('errors.connection'))
-          toast.error(t('errors.connection'))
+          console.log(t('errors.connection'));
+          toast.error(t('errors.connection'));
         }
         setInputActive(true);
       }
     );
-  }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -206,8 +207,8 @@ const RenameChannel = ({ handleClose }) => {
         </Form>
       </Modal.Body>
     </>
-  )
-}
+  );
+};
 
 const RemoveChannel = ({ handleClose }) => {
   const { t } = useTranslation();
@@ -235,7 +236,7 @@ const RemoveChannel = ({ handleClose }) => {
         handleClose();
       }
     );
-  }
+  };
 
   return (
     <>
@@ -254,21 +255,21 @@ const RemoveChannel = ({ handleClose }) => {
         </Form>
       </Modal.Body>
     </>
-  )
-}
+  );
+};
 
 const channelTypes = {
   AddChannel,
   RenameChannel,
   RemoveChannel,
-}
+};
 
 const Modals = () => {
   const dispatch = useDispatch();
   const { showModal, modalType } = useSelector((state) => state.modals);
   const handleClose = () => {
     dispatch(modalsAction.setShowModal(false));
-  }
+  };
 
   const CurrentModal = channelTypes[modalType];
 
@@ -276,7 +277,7 @@ const Modals = () => {
     <Modal show={showModal} onHide={handleClose}>
       {CurrentModal && <CurrentModal handleClose={handleClose} />}
     </Modal>
-  )
-}
+  );
+};
 
 export default Modals;

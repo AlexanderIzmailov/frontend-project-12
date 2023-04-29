@@ -5,11 +5,15 @@ import Nav from 'react-bootstrap/Nav';
 
 import { useAuth } from '../../contexts/AuthContext.js';
 
-export const Layout = () => {
-
+const Layout = () => {
   const { t } = useTranslation();
 
-  const { authUser, setAuthUser, setIsLoggedIn, setToken } = useAuth();
+  const {
+    authUser,
+    setAuthUser,
+    setIsLoggedIn,
+    setToken
+  } = useAuth();
 
   const logout = () => {
     setAuthUser(null);
@@ -29,19 +33,18 @@ export const Layout = () => {
               <Link className="navbar-brand nav-link align-middle" to="/">Hexlet Chat</Link>
             </Nav.Item>
 
-            {authUser
-              ?
-              <Nav.Item className="ms-auto">
+            {authUser?
+              (<Nav.Item className="ms-auto">
                 <Link className="nav-link" to="login" onClick={logout}>{t('loginForm.logout')}</Link>
-              </Nav.Item>
-              :
-              null
-            }
+              </Nav.Item>)
+              : null}
 
           </div>
         </Nav>
         <Outlet />
       </div>
     </>
-  )
+  );
 };
+
+export default Layout;

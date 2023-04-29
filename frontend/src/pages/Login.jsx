@@ -11,8 +11,7 @@ import { useAuth } from '../contexts/AuthContext';
 import routes from '../routes.js';
 import toast from './components/toasts.js';
 
-export const Login = () => {
-
+const Login = () => {
   const { t } = useTranslation();
 
   const [authError, setAuthError] = useState(null);
@@ -50,8 +49,8 @@ export const Login = () => {
         } else {
           toast.error(t('errors.connection'));
         }
-      })
-  }
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -142,5 +141,7 @@ export const Login = () => {
       </div>
       {/* <ToastContainer /> */}
     </div>
-  )
+  );
 };
+
+export default Login;

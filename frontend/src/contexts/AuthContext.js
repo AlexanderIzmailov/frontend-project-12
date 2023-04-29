@@ -20,11 +20,11 @@ export const AuthProvider = (props) => {
     setToken,
   };
 
-  const  { children } = props;
+  const { children } = props;
 
   return (
     <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};

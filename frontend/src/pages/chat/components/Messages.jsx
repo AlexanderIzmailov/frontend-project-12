@@ -41,7 +41,8 @@ const Messages = () => {
       <div className="bg-light mb-4 p-3 shadow-sm small">
         <p className="m-0">
           <b>
-            # {GetCurrentChannelName()}
+            #
+            {GetCurrentChannelName()}
           </b>
         </p>
         <span className="text-muted">{t('chat.numberMessages.number', { count: numberOfMessages })}</span>
@@ -51,7 +52,7 @@ const Messages = () => {
         <div ref={bottomChatRef} />
       </div>
     </>
-  )
+  );
 };
 
 export default Messages;

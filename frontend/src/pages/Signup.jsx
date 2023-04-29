@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -5,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
-import { FocusError } from 'focus-formik-error'
+import { FocusError } from 'focus-formik-error';
 
 import { useState } from 'react';
 
@@ -19,7 +20,7 @@ import routes from '../routes.js';
 
 import toast from './components/toasts.js';
 
-export const Signup = () => {
+const Signup = () => {
   const { t } = useTranslation();
   const [signupError, setSignupError] = useState(null);
   const navigate = useNavigate();
@@ -168,3 +169,5 @@ export const Signup = () => {
     </div>
   );
 };
+
+export default Signup;

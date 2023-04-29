@@ -62,9 +62,9 @@ const InputField = () => {
           console.log(t('errors.connection'));
         }
         setInputActive(true);
-      }
+      },
     );
-  }
+  };
 
   // const inputGroupClass = inputField.trim() ? "" : "has-validation"
 
