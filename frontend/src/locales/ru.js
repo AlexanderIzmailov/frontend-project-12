@@ -57,7 +57,8 @@ export default {
                 channelExist: 'Должно быть уникальным',
                 length: 'От 3 до 20 символов',
                 requiredField: 'Обязательное поле',
-            }
+            },
+            addChannelLabel: 'Имя канала',
         },
         errors: {
             socket: 'Проблема с сокетом',
